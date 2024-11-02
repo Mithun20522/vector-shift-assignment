@@ -18,7 +18,10 @@ export const InputNode = ({ id, data }) => {
   };
 
   return (
-    <div style={{ width: 200, height: 80, border: "1px solid black" }}>
+    <div
+      className="bg-red-500"
+      style={{ width: 200, height: 80, border: "1px solid black" }}
+    >
       <div>
         <span>Input</span>
       </div>
