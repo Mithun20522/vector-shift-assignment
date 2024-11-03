@@ -27,10 +27,13 @@ export const SubmitButton = () => {
       const formData = new FormData();
       formData.append("pipeline", JSON.stringify(pipelineData));
 
-      const response = await fetch("http://localhost:8000/pipelines/parse", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://backend-vector-shift-assignment.onrender.com/pipelines/parse",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       const result = await response.json();
       setIsloading(false);
