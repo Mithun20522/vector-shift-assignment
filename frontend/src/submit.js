@@ -17,7 +17,7 @@ export const SubmitButton = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [loading, setIsloading] = useState(false);
   const { isDarkTheme } = useTheme();
-  console.log("showalter: ", showAlert);
+
   const handleSubmit = async () => {
     const pipelineData = {
       nodes: nodes,
@@ -35,14 +35,16 @@ export const SubmitButton = () => {
           body: formData,
         }
       );
-
       const result = await response.json();
-      setIsloading(false);
-      toast.success("Analysis completed");
-      setAnalysisResult(result);
-      setShowAlert(true);
+      if (response.ok) {
+        setIsloading(false);
+        toast.success("Analysis completed");
+        setAnalysisResult(result);
+        setShowAlert(true);
+      }
     } catch (error) {
       setIsloading(false);
+      setShowAlert(false);
       toast.error(error.message);
       console.error("Error submitting pipeline:", error);
     }
