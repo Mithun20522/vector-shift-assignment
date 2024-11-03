@@ -19,7 +19,6 @@ const NODE_TYPES = [
 
 export const PipelineToolbar = () => {
   const [isToolboxOpen, setToolboxOpen] = useState(false);
-
   return (
     <>
       <div className="fixed top-4 left-4 z-50 flex gap-2">
