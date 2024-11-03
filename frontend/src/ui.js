@@ -126,18 +126,20 @@ export const PipelineUI = () => {
           />
           <Controls
             className={`
-              ${isDarkTheme ? "bg-gray-700" : "bg-white"} 
+              ${!isDarkTheme ? "bg-gray-700" : "bg-white"} 
               rounded-lg shadow-lg
             `}
           />
           <MiniMap
             className={`
-              ${isDarkTheme ? "bg-gray-700" : "bg-white"}
+              ${!isDarkTheme ? "bg-gray-700" : "bg-white"}
               rounded-lg shadow-lg
             `}
-            nodeColor={isDarkTheme ? "#9CA3AF" : "#4B5563"}
+            nodeColor={!isDarkTheme ? "#9CA3AF" : "#4B5563"}
             maskColor={
-              isDarkTheme ? "rgba(55, 65, 81, 0.5)" : "rgba(229, 231, 235, 0.5)"
+              !isDarkTheme
+                ? "rgba(55, 65, 81, 0.5)"
+                : "rgba(229, 231, 235, 0.5)"
             }
           />
         </ReactFlow>
