@@ -26,18 +26,17 @@ export const TextNode = ({ id, data }) => {
     block text-sm font-medium mb-1
     ${isDarkTheme ? "text-gray-300" : "text-gray-700"}
   `;
-
   return (
     <BaseNode title="Text Node">
       <div className="space-y-3 min-w-sm">
         {nodeState.handleConfigs.map((config, index) => (
           <NodeHandle
-            key={config.id}
+            key={`input-${index}`}
             type="target"
             config={config}
             nodeId={id}
             index={index}
-            total={nodeState.handleConfigs.length}
+            total={nodeState.handleConfigs}
             isDark={isDarkTheme}
           />
         ))}

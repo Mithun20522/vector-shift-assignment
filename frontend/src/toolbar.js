@@ -21,21 +21,21 @@ export const PipelineToolbar = () => {
   const [isToolboxOpen, setToolboxOpen] = useState(false);
   return (
     <>
-      <div className="fixed top-4 left-4 z-50 flex gap-2">
-        {!isToolboxOpen && (
+      {!isToolboxOpen && (
+        <div className="fixed top-4 left-4 z-50 flex gap-2">
           <button
             onClick={() => setToolboxOpen(true)}
             className="p-2 bg-gray-700 hover:bg-gray-600 rounded-lg shadow-lg transition-colors duration-200"
           >
             <CombineIcon className="w-6 h-6 text-white" />
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
       <SlidingPanel
         isOpen={isToolboxOpen}
         onClose={() => setToolboxOpen(false)}
-        title="Node components"
+        title="Nodes"
         position="left"
       >
         <div className="grid grid-cols-2 gap-3">

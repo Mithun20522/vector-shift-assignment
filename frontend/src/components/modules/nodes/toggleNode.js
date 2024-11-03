@@ -26,7 +26,11 @@ export const ToggleNode = ({ id }) => {
   `;
 
   return (
-    <BaseNode title="Toggle Node">
+    <BaseNode
+      title="Toggle Node"
+      inputs={[{ id: "input-1", style: {} }]}
+      outputs={[{ id: "output-1", style: {} }]}
+    >
       <div className="space-y-3">
         <button className={buttonClass} onClick={() => setIsActive(!isActive)}>
           {isActive ? "Deactivate" : "Activate"}

@@ -5,14 +5,18 @@ import { useTheme } from "../../context/themeProvider";
 export const InputControl = ({ type, value, onChange, ...props }) => {
   const { isDarkTheme } = useTheme();
   const nodeStyles = getNodeStyles(isDarkTheme);
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    onChange(
+      type === "number" && newValue !== "" ? Number(newValue) : newValue
+    );
+  };
 
   return (
     <input
       type={type}
       value={value === undefined ? "" : value}
-      onChange={(e) =>
-        onChange(type === "number" ? Number(e.target.value) : e.target.value)
-      }
+      onChange={handleChange}
       style={nodeStyles.input}
       {...props}
     />

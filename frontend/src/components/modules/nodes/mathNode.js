@@ -29,7 +29,11 @@ export const MathNode = ({ id }) => {
   `;
 
   return (
-    <BaseNode title="Math Node">
+    <BaseNode
+      title="Math Node"
+      inputs={[{ id: "input-1", style: {} }]}
+      outputs={[{ id: "output-1", style: {} }]}
+    >
       <div className="space-y-3">
         <InputControl
           type="number"

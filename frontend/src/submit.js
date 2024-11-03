@@ -4,6 +4,7 @@ import { useTheme } from "./context/themeProvider";
 import { shallow } from "zustand/shallow";
 import { toast } from "sonner";
 import { Alert } from "./ui/alert";
+import { Loader2Icon } from "lucide-react";
 
 const pipelineSelector = (state) => ({
   nodes: state.nodes,
@@ -78,7 +79,14 @@ export const SubmitButton = () => {
           className={buttonClass}
           disabled={loading}
         >
-          {loading ? "Analysing..." : "Submit"}
+          {loading ? (
+            <div className="flex items-center justify-center">
+              <Loader2Icon className="w-5 h-5 animate-spin mr-2" />
+              <span>Loading...</span>
+            </div>
+          ) : (
+            "Submit"
+          )}
         </button>
       </div>
 

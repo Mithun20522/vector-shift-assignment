@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useTheme } from "../../../context/themeProvider";
 import { BaseNode } from "../BaseNode";
 import { SelectControl } from "../../controls/SelectControl";
-
 export const InputNode = ({ id, data }) => {
   const { isDarkTheme } = useTheme();
   const [currName, setCurrName] = useState(

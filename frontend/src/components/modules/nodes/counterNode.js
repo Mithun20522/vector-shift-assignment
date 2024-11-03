@@ -7,6 +7,11 @@ export const CounterNode = ({ id }) => {
   const [count, setCount] = useState(0);
   const { isDarkTheme } = useTheme();
 
+  const decrementCounter = () => {
+    if (count === 0) return;
+    setCount(count - 1);
+  };
+
   const buttonClass = `
     px-3 py-1 rounded-md
     ${
@@ -25,7 +30,7 @@ export const CounterNode = ({ id }) => {
       outputs={[{ id: "output-1", style: {} }]}
     >
       <div className="flex items-center space-x-4">
-        <button className={buttonClass} onClick={() => setCount(count - 1)}>
+        <button className={buttonClass} onClick={decrementCounter}>
           -
         </button>
         <span className={isDarkTheme ? "text-gray-200" : "text-gray-700"}>

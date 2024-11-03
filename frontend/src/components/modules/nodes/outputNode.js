@@ -24,7 +24,11 @@ export const OutputNode = ({ id, data }) => {
   `;
 
   return (
-    <BaseNode title="Output Node">
+    <BaseNode
+      title="Output Node"
+      inputs={[{ id: "input-1", style: {} }]}
+      outputs={[{ id: "output-1", style: {} }]}
+    >
       <div className="space-y-3">
         <div>
           <label className={labelClass}>Name</label>
