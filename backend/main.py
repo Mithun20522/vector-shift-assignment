@@ -8,11 +8,15 @@ from collections import defaultdict
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://vector-shift-assignment.vercel.app"],
+    allow_origins=[
+        "http://localhost:3000", 
+        "https://vector-shift-assignment.vercel.app" 
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 def is_dag(nodes: List[Dict[str, Any]], edges: List[Dict[str, Any]]) -> bool:
     graph = defaultdict(list)
