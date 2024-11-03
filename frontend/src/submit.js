@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTheme } from "./context/themeProvider";
 import { Alert } from "./ui/alert";
 import { shallow } from "zustand/shallow";
+import { toast } from "sonner";
 
 const pipelineSelector = (state) => ({
   nodes: state.nodes,
@@ -37,10 +38,12 @@ export const SubmitButton = () => {
 
       const result = await response.json();
       setIsloading(false);
+      toast.success("Analysis completed");
       setAnalysisResult(result);
       setShowAlert(true);
     } catch (error) {
       setIsloading(false);
+      toast.error(error.message);
       console.error("Error submitting pipeline:", error);
     }
   };
