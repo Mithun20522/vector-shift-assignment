@@ -11,6 +11,7 @@ import { PipelineToolbar } from "./toolbar";
 import { ThemeToggle } from "./ui/themeToggle";
 import "reactflow/dist/style.css";
 import { useTheme } from "./context/themeProvider";
+import { SubmitButton } from "./submit";
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
@@ -131,7 +132,7 @@ export const PipelineUI = () => {
             `}
           />
           <MiniMap
-            className={`
+            className={`hidden sm:block
               ${!isDarkTheme ? "bg-gray-700" : "bg-white"}
               rounded-lg shadow-lg
             `}
@@ -143,6 +144,7 @@ export const PipelineUI = () => {
             }
           />
         </ReactFlow>
+        <SubmitButton />
       </div>
     </div>
   );
