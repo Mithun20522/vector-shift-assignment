@@ -1,20 +1,30 @@
+import { useTheme } from "../../../context/themeProvider";
 import { BaseNode } from "../BaseNode";
+
 export const CheckboxNode = ({ data }) => {
-  const handleChange = (event) => {
-    data.onChange(event.target.checked);
-  };
+  const { isDarkTheme } = useTheme();
 
   return (
-    <BaseNode title="Checkbox Node" inputs={data.inputs} outputs={data.outputs}>
-      <label>
-        <input type="checkbox" checked={data.checked} onChange={handleChange} />
-        {data.label
-          ? data.checked
-            ? `Un Check me! ${data.label}`
-            : `Check me! ${data.label}`
-          : data.checked
-          ? "Un Check me!"
-          : "Check me!"}
+    <BaseNode title="Checkbox" inputs={data.inputs} outputs={data.outputs}>
+      <label className="flex items-center space-x-3 cursor-pointer">
+        <input
+          type="checkbox"
+          checked={data.checked}
+          onChange={(e) => data.onChange(e.target.checked)}
+          className={`
+            w-4 h-4 rounded 
+            ${isDarkTheme ? "bg-gray-700" : "bg-gray-200"}
+            border-transparent focus:ring-2 focus:ring-blue-500
+          `}
+        />
+        <span
+          className={`
+          text-sm font-medium
+          ${isDarkTheme ? "text-gray-200" : "text-gray-700"}
+        `}
+        >
+          {data.label || (data.checked ? "Uncheck me!" : "Check me!")}
+        </span>
       </label>
     </BaseNode>
   );

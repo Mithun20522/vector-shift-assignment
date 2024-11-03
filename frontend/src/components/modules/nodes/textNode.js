@@ -1,35 +1,37 @@
 // textNode.js
 
-import { useState } from 'react';
-import { Handle, Position } from 'reactflow';
+import React, { useState } from "react";
+import { useTheme } from "../../../context/themeProvider";
+import { BaseNode } from "../BaseNode";
 
 export const TextNode = ({ id, data }) => {
-  const [currText, setCurrText] = useState(data?.text || '{{input}}');
+  const { isDarkTheme } = useTheme();
+  const [currText, setCurrText] = useState(data?.text || "{{input}}");
 
-  const handleTextChange = (e) => {
-    setCurrText(e.target.value);
-  };
+  const inputClass = `
+    w-full px-3 py-2 rounded-md
+    ${isDarkTheme ? "bg-gray-700 text-gray-100" : "bg-gray-100 text-gray-900"}
+    border-none outline-none transition-colors duration-200
+  `;
+
+  const labelClass = `
+    block text-sm font-medium mb-1
+    ${isDarkTheme ? "text-gray-300" : "text-gray-700"}
+  `;
 
   return (
-    <div style={{width: 200, height: 80, border: '1px solid black'}}>
-      <div>
-        <span>Text</span>
-      </div>
-      <div>
-        <label>
-          Text:
-          <input 
-            type="text" 
-            value={currText} 
-            onChange={handleTextChange} 
+    <BaseNode title="Text Node">
+      <div className="space-y-3">
+        <div>
+          <label className={labelClass}>Text</label>
+          <input
+            type="text"
+            value={currText}
+            onChange={(e) => setCurrText(e.target.value)}
+            className={inputClass}
           />
-        </label>
+        </div>
       </div>
-      <Handle
-        type="source"
-        position={Position.Right}
-        id={`${id}-output`}
-      />
-    </div>
+    </BaseNode>
   );
-}
+};

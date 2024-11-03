@@ -1,34 +1,24 @@
 // llmNode.js
+import { useTheme } from "../../../context/themeProvider";
+import { BaseNode } from "../BaseNode";
 
-import { Handle, Position } from 'reactflow';
-
-export const LLMNode = ({ id, data }) => {
+export const LLMNode = ({ id }) => {
+  const { isDarkTheme } = useTheme();
 
   return (
-    <div style={{width: 200, height: 80, border: '1px solid black'}}>
-      <Handle
-        type="target"
-        position={Position.Left}
-        id={`${id}-system`}
-        style={{top: `${100/3}%`}}
-      />
-      <Handle
-        type="target"
-        position={Position.Left}
-        id={`${id}-prompt`}
-        style={{top: `${200/3}%`}}
-      />
-      <div>
-        <span>LLM</span>
+    <BaseNode
+      title="LLM"
+      inputs={[
+        { id: `${id}-system`, style: {} },
+        { id: `${id}-prompt`, style: {} },
+      ]}
+      outputs={[{ id: `${id}-response`, style: {} }]}
+    >
+      <div
+        className={`text-sm ${isDarkTheme ? "text-gray-300" : "text-gray-600"}`}
+      >
+        Language Model Node
       </div>
-      <div>
-        <span>This is a LLM.</span>
-      </div>
-      <Handle
-        type="source"
-        position={Position.Right}
-        id={`${id}-response`}
-      />
-    </div>
+    </BaseNode>
   );
-}
+};

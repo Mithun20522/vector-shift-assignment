@@ -1,44 +1,59 @@
 // inputNode.js
-
 import { useState } from "react";
-import { Handle, Position } from "reactflow";
+
+import { useTheme } from "../../../context/themeProvider";
+import { BaseNode } from "../BaseNode";
+import { SelectControl } from "../../controls/SelectControl";
 
 export const InputNode = ({ id, data }) => {
+  const { isDarkTheme } = useTheme();
   const [currName, setCurrName] = useState(
     data?.inputName || id.replace("customInput-", "input_")
   );
   const [inputType, setInputType] = useState(data.inputType || "Text");
 
-  const handleNameChange = (e) => {
-    setCurrName(e.target.value);
-  };
-
-  const handleTypeChange = (e) => {
-    setInputType(e.target.value);
-  };
+  const inputClass = `
+    w-full px-3 py-2 mb-2 rounded-md
+    ${isDarkTheme ? "bg-gray-700 text-gray-100" : "bg-gray-100 text-gray-900"}
+    border-none outline-none transition-colors duration-200
+  `;
 
   return (
-    <div
-      className="bg-red-500"
-      style={{ width: 200, height: 80, border: "1px solid black" }}
-    >
-      <div>
-        <span>Input</span>
+    <BaseNode title="Input" outputs={[{ id: `${id}-value`, style: {} }]}>
+      <div className="space-y-3">
+        <div>
+          <label
+            className={`block text-sm font-medium mb-1 ${
+              isDarkTheme ? "text-gray-300" : "text-gray-700"
+            }`}
+          >
+            Name
+          </label>
+          <input
+            type="text"
+            value={currName}
+            onChange={(e) => setCurrName(e.target.value)}
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label
+            className={`block text-sm font-medium mb-1 ${
+              isDarkTheme ? "text-gray-300" : "text-gray-700"
+            }`}
+          >
+            Type
+          </label>
+          <SelectControl
+            value={inputType}
+            onChange={setInputType}
+            options={[
+              { value: "Text", label: "Text" },
+              { value: "File", label: "File" },
+            ]}
+          />
+        </div>
       </div>
-      <div>
-        <label>
-          Name:
-          <input type="text" value={currName} onChange={handleNameChange} />
-        </label>
-        <label>
-          Type:
-          <select value={inputType} onChange={handleTypeChange}>
-            <option value="Text">Text</option>
-            <option value="File">File</option>
-          </select>
-        </label>
-      </div>
-      <Handle type="source" position={Position.Right} id={`${id}-value`} />
-    </div>
+    </BaseNode>
   );
 };

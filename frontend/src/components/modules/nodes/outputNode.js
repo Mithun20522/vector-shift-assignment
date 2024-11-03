@@ -1,47 +1,52 @@
 // outputNode.js
 
-import { useState } from 'react';
-import { Handle, Position } from 'reactflow';
+import React, { useState } from "react";
+import { useTheme } from "../../../context/themeProvider";
+import { BaseNode } from "../BaseNode";
+import { SelectControl } from "../../controls/SelectControl";
 
 export const OutputNode = ({ id, data }) => {
-  const [currName, setCurrName] = useState(data?.outputName || id.replace('customOutput-', 'output_'));
-  const [outputType, setOutputType] = useState(data.outputType || 'Text');
+  const { isDarkTheme } = useTheme();
+  const [currName, setCurrName] = useState(
+    data?.outputName || id.replace("customOutput-", "output_")
+  );
+  const [inputType, setInputType] = useState(data.inputType || "Text");
 
-  const handleNameChange = (e) => {
-    setCurrName(e.target.value);
-  };
+  const inputClass = `
+    w-full px-3 py-2 mb-2 rounded-md
+    ${isDarkTheme ? "bg-gray-700 text-gray-100" : "bg-gray-100 text-gray-900"}
+    border-none outline-none transition-colors duration-200
+  `;
 
-  const handleTypeChange = (e) => {
-    setOutputType(e.target.value);
-  };
+  const labelClass = `
+    block text-sm font-medium mb-1
+    ${isDarkTheme ? "text-gray-300" : "text-gray-700"}
+  `;
 
   return (
-    <div style={{width: 200, height: 80, border: '1px solid black'}}>
-      <Handle
-        type="target"
-        position={Position.Left}
-        id={`${id}-value`}
-      />
-      <div>
-        <span>Output</span>
-      </div>
-      <div>
-        <label>
-          Name:
-          <input 
-            type="text" 
-            value={currName} 
-            onChange={handleNameChange} 
+    <BaseNode title="Output Node">
+      <div className="space-y-3">
+        <div>
+          <label className={labelClass}>Name</label>
+          <input
+            type="text"
+            value={currName}
+            onChange={(e) => setCurrName(e.target.value)}
+            className={inputClass}
           />
-        </label>
-        <label>
-          Type:
-          <select value={outputType} onChange={handleTypeChange}>
-            <option value="Text">Text</option>
-            <option value="File">Image</option>
-          </select>
-        </label>
+        </div>
+        <div>
+          <label className={labelClass}>Type</label>
+          <SelectControl
+            value={inputType}
+            onChange={setInputType}
+            options={[
+              { value: "Text", label: "Text" },
+              { value: "File", label: "File" },
+            ]}
+          />
+        </div>
       </div>
-    </div>
+    </BaseNode>
   );
-}
+};

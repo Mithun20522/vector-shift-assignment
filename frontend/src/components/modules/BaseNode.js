@@ -1,5 +1,6 @@
 import { NodeHandle } from "../common/NodeHandle";
-import { NODE_STYLES } from "../../constants";
+import { getNodeStyles } from "../../constants";
+import { useTheme } from "../../context/themeProvider";
 
 export const BaseNode = ({
   id,
@@ -8,31 +9,38 @@ export const BaseNode = ({
   inputs = [],
   outputs = [],
   style = {},
-}) => (
-  <div style={{ ...NODE_STYLES.container, ...style }}>
-    {inputs.map((input, index) => (
-      <NodeHandle
-        key={`input-${input.id}`}
-        type="target"
-        config={input}
-        nodeId={id}
-        index={index}
-        total={inputs.length}
-      />
-    ))}
+}) => {
+  const { isDarkTheme } = useTheme();
+  const nodeStyles = getNodeStyles(isDarkTheme);
 
-    <div style={NODE_STYLES.title}>{title}</div>
-    <div style={NODE_STYLES.content}>{children}</div>
+  return (
+    <div style={{ ...nodeStyles.container, ...style }}>
+      {inputs.map((input, index) => (
+        <NodeHandle
+          key={`input-${input.id}`}
+          type="target"
+          config={input}
+          nodeId={id}
+          index={index}
+          total={inputs.length}
+          isDark={isDarkTheme}
+        />
+      ))}
 
-    {outputs.map((output, index) => (
-      <NodeHandle
-        key={`output-${output.id}`}
-        type="source"
-        config={output}
-        nodeId={id}
-        index={index}
-        total={outputs.length}
-      />
-    ))}
-  </div>
-);
+      <div style={nodeStyles.title}>{title}</div>
+      <div style={nodeStyles.content}>{children}</div>
+
+      {outputs.map((output, index) => (
+        <NodeHandle
+          key={`output-${output.id}`}
+          type="source"
+          config={output}
+          nodeId={id}
+          index={index}
+          total={outputs.length}
+          isDark={isDarkTheme}
+        />
+      ))}
+    </div>
+  );
+};
