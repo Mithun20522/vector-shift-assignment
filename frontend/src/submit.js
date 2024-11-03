@@ -17,7 +17,7 @@ export const SubmitButton = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [loading, setIsloading] = useState(false);
   const { isDarkTheme } = useTheme();
-
+  console.log("showalter: ", showAlert);
   const handleSubmit = async () => {
     const pipelineData = {
       nodes: nodes,
